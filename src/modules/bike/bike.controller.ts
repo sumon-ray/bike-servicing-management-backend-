@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
+import prisma from "../../prisma";
 import sendResponse from "../../shared/sendResponse";
 import { bikeService } from "./bike.service";
 
+// create bike
 const createBike = async (req: Request, res: Response) => {
   try {
     const result = await bikeService.createBike(req.body);
@@ -25,6 +27,51 @@ const createBike = async (req: Request, res: Response) => {
   }
 };
 
+// get all bikes
+const getAllBikesFromDB = async (req: Request, res: Response) => {
+  try {
+    const result = await bikeService.getAllBikesFromDB();
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Bike fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    sendResponse(res, {
+      statusCode: 500,
+      success: false,
+      message: "Failed to fetch bikes",
+      error: error.name || "something is wrong",
+    });
+  }
+};
+
+// get a bike based on id
+const getBikeByIdFromDB = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await bikeService.getBikeById(id)
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Bike fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    sendResponse(res, {
+      statusCode: 500,
+      success: false,
+      message: "Failed to fetch bike",
+      error: error.name || "something is wrong",
+    });
+  }
+};
+
 export const bikeController = {
   createBike,
+  getAllBikesFromDB,
+  getBikeByIdFromDB,
 };
