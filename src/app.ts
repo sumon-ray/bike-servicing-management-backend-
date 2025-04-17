@@ -1,5 +1,6 @@
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
+import router from "./modules/customer.routes";
 const app: Application = express();
 app.use(cors());
 // parser
@@ -8,21 +9,23 @@ app.use(express.urlencoded({ extended: true }));
 
 const rootController = (req: Request, res: Response) => {
   res.send({
-    message: "library management system",
+    Title: "library management system",
+    Dev: "Sumon Ray",
+    Assignment: "08",
+    Platform: "level-2",
   });
 };
 
 app.get("/", rootController);
 
-app.use('/api')
+app.use("/api", router);
 // app.use('/api/v1/')
-// not found error 
+// not found error
 // global error handler
-// routes 
+// routes
 // app.use(not)
 
 export default app;
-
 
 
 
