@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
-import router from "./modules/customer.routes";
+import router from "./routers";
+
 const app: Application = express();
 app.use(cors());
 // parser

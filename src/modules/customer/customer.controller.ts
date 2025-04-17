@@ -1,23 +1,29 @@
 import { Request, Response } from "express";
 import httpStatus from "http-status";
 import { customerService } from "./customer.service";
+import sendResponse from "../../shared/sendResponse";
 
 const createCustomerIntoDB = async (req: Request, res: Response) => {
   //   console.log(result);
   try {
     const result = await customerService.createCustomerIntoDB(req.body);
 
-    res.status(httpStatus.OK).json({
+    sendResponse(res, {
+      statusCode: 200,
       success: true,
-      message: "Customers created successfully",
+      message: "d",
       data: result,
     });
-  } catch (error: any) {
-    res.status(httpStatus.BAD_REQUEST).json({
+
+
+  } catch (error:any) {
+
+    sendResponse(res, {
+      statusCode: 400,
       success: false,
       message: "failed to created customers",
-      error: error.name || "something went wrong",
-    });
+      error: error.name || "Something went wrong"
+    })
   }
 };
 
@@ -25,17 +31,26 @@ const createCustomerIntoDB = async (req: Request, res: Response) => {
 const getAllCustomersFromDB = async (req: Request, res: Response) => {
   try {
     const result = await customerService.getAllCustomersFromDB();
-    res.status(httpStatus.OK).json({
-      success: true,
+
+    sendResponse(res,{
+      statusCode:200,
+      success:true,
       message: "Customers fetched successfully",
       data: result,
-    });
+    })
   } catch (error: any) {
-    res.status(httpStatus.BAD_REQUEST).json({
+    // res.status(httpStatus.BAD_REQUEST).json({
+    //   success: false,
+    //   message: "failed to fetch all customers",
+    //   error: error.name || "something went wrong",
+    // });
+    sendResponse(res, {
+      statusCode: 400,
       success: false,
       message: "failed to fetch all customers",
-      error: error.name || "something went wrong",
-    });
+      error: error.name
+
+    })
   }
 };
 
@@ -104,3 +119,5 @@ export const customerController = {
   updateCustomerInfoIntoDB,
   deleteCustomerFromDB,
 };
+
+

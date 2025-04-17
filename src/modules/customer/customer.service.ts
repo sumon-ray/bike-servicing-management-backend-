@@ -1,4 +1,4 @@
-import prisma from "../prisma";
+import prisma from "../../prisma";
 import ICustomer from "./customer.interface";
 const createCustomerIntoDB = async (data: ICustomer) => {
   //   console.log(data);
