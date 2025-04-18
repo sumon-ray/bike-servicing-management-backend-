@@ -36,7 +36,32 @@ const getAllServiceRecordFromDB = (0, catchAsync_1.default)((req, res) => __awai
         data: result,
     });
 }));
+// get service record by id
+const getServiceRecordByIdFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield serviceRecord_service_1.serviceRecordService.getServiceRecordByIdFromDB(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Service record fetched successfully",
+        data: result,
+    });
+}));
+// update service record
+const updateServiceRecordIntoDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const data = req.body;
+    const result = yield serviceRecord_service_1.serviceRecordService.updateServiceRecordIntoDB(data, id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Service marked as completed",
+        data: result,
+    });
+}));
 exports.serviceRecordController = {
     createServiceRecordIntoDB,
     getAllServiceRecordFromDB,
+    getServiceRecordByIdFromDB,
+    updateServiceRecordIntoDB
 };
