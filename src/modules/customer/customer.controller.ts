@@ -11,7 +11,7 @@ const createCustomerIntoDB = async (req: Request, res: Response) => {
     sendResponse(res, {
       statusCode: 200,
       success: true,
-      message: "d",
+      message: "Customer created successfully",
       data: result,
     });
 
@@ -44,6 +44,7 @@ const getAllCustomersFromDB = async (req: Request, res: Response) => {
     //   message: "failed to fetch all customers",
     //   error: error.name || "something went wrong",
     // });
+    console.log(error)
     sendResponse(res, {
       statusCode: 400,
       success: false,
