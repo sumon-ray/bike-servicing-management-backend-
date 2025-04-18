@@ -29,22 +29,22 @@ A backend application to manage bike servicing schedules, records, and statuses.
 git clone https://github.com/your-username/bike-service-management.git
 cd bike-service-management
 
-2. Install Dependencies
+### 2. Install Dependencies
 npm install
 
-3. Set Up Environment Variables
+### 3. Set Up Environment Variables
 Create a .env file and add your PostgreSQL database URL:
 
 DATABASE_URL=postgresql://user:password@localhost:5432/db_name
 PORT=5000
 
-4. Generate Prisma Client
+### 4. Generate Prisma Client
 npx prisma generate
 
-5. Run Migrations
+### 5. Run Migrations
 npx prisma migrate dev --name init
 
-6. Start the Server
+### 6. Start the Server
 npm run dev
 
 ## 🌟 Key Features
