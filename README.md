@@ -18,7 +18,7 @@ A backend application to manage bike servicing schedules, records, and statuses.
 - **PostgreSQL** – Relational database  
 - **Zod** – Input validation  
 - **dotenv** – Environment variable management  
-- **CORS, Morgan, Helmet** – Middleware for security and logging  
+- **CORS** – Middleware for security and logging  
 
 ---
 
