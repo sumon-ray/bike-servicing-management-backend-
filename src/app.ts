@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import router from "./routers";
+import globalErrorHandler from "./middleware/globalErrorHandler";
 
 const app: Application = express();
 app.use(cors());
@@ -20,6 +21,7 @@ const rootController = (req: Request, res: Response) => {
 app.get("/", rootController);
 
 app.use("/api", router);
+app.use(globalErrorHandler)
 // app.use('/api/v1/')
 // not found error
 // global error handler

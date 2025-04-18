@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import prisma from "../../prisma";
+import { NextFunction, Request, Response } from "express";
+import catchAsync from "../../shared/catchAsync";
 import sendResponse from "../../shared/sendResponse";
 import { bikeService } from "./bike.service";
 
@@ -49,10 +49,10 @@ const getAllBikesFromDB = async (req: Request, res: Response) => {
 };
 
 // get a bike based on id
-const getBikeByIdFromDB = async (req: Request, res: Response) => {
-  try {
+const getBikeByIdFromDB = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
-    const result = await bikeService.getBikeById(id)
+    const result = await bikeService.getBikeById(id);
 
     sendResponse(res, {
       statusCode: 200,
@@ -60,15 +60,8 @@ const getBikeByIdFromDB = async (req: Request, res: Response) => {
       message: "Bike fetched successfully",
       data: result,
     });
-  } catch (error: any) {
-    sendResponse(res, {
-      statusCode: 500,
-      success: false,
-      message: "Failed to fetch bike",
-      error: error.name || "something is wrong",
-    });
   }
-};
+);
 
 export const bikeController = {
   createBike,

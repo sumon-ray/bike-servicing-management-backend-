@@ -1,4 +1,5 @@
 import { Prisma } from "@prisma/client";
+import { AppError } from "../../errors/AppError";
 import prisma from "../../prisma";
 
 type IBike = {
@@ -33,15 +34,24 @@ const getAllBikesFromDB = async () => {
 
 // get a bike by id
 const getBikeById = async (id: string) => {
-  const result = await prisma.bike.findUniqueOrThrow({
-    where: {
-      bikeId: id,
-    },
-  });
-  return result
+  try {
+    const result = await prisma.bike.findUniqueOrThrow({
+      where: {
+        bikeId: id,
+      },
+    });
+    return result;
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2025") {
+        throw new AppError("No bike found with the provided ID", 404);
+      }
+    }
+    throw new AppError("Internal server error", 500);
+  }
 };
 export const bikeService = {
   createBike,
   getAllBikesFromDB,
-  getBikeById
+  getBikeById,
 };
